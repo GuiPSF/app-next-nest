@@ -1,3 +1,9 @@
+# Dependencies to Install
+
+```
+npm i @nestjs/mongoose mongoose uuid @nestjs/config @types/bcrypt bcrypt @nestjs/passport passport-jwt @nestjs/jwt class-validator class-transformer styled-components
+```
+
 # Turborepo starter
 
 This Turborepo starter is maintained by the Turborepo core team.
