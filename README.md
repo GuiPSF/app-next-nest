@@ -1,7 +1,7 @@
 # Dependencies to Install
 
 ```
-npm i @nestjs/mongoose mongoose uuid @nestjs/config @types/bcrypt bcrypt @nestjs/passport passport-jwt @nestjs/jwt class-validator class-transformer styled-components
+npm i turbo @nestjs/mongoose mongoose uuid @nestjs/config @types/bcrypt bcrypt @nestjs/passport passport-jwt @nestjs/jwt class-validator class-transformer styled-components
 ```
 
 # Turborepo starter
