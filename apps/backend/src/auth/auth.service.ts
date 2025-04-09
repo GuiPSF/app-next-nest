@@ -39,6 +39,12 @@ export class AuthService {
       password: hashedPassword,
       role,
     });
+    return {
+      username,
+      email,
+      password: hashedPassword,
+      role,
+    }
   }
 
   async login(loginDto: LoginDto) {
