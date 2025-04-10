@@ -18,12 +18,13 @@ const SButton = styled.button`
 interface ButtonProps {
   type?: string;
   children: React.ReactNode;
+  onClick?: () => void
 }
 
-const Button: React.FC<ButtonProps> = ({ type = "", children }) => {
+const Button: React.FC<ButtonProps> = ({onClick, children }) => {
   return (
     <>
-      <SButton type="submit"> {children} </SButton>
+      <SButton type="submit" onClick={onClick}> {children} </SButton>
     </>
   );
 };

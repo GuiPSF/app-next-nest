@@ -4,13 +4,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function ProfileAuth() {
+
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const token =
-      typeof window !== "undefined" && localStorage.getItem("token");
-
+    const token = localStorage.getItem("token");
     if (!token) {
       router.push("/login");
     } else {

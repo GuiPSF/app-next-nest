@@ -22,11 +22,11 @@ export class UserService {
         return newUser.save()
     }
 
-    updateUser(id: string, updateUserDto: UpdateUserDto){
-        return this.userModel.findByIdAndUpdate(id, updateUserDto, {new: true})
+    updateUser(username: string, updateUserDto: UpdateUserDto){
+        return this.userModel.findByIdAndUpdate(username, updateUserDto, {new: true})
     }
 
-    deleteUser(id: string){
-        return this.userModel.findByIdAndDelete(id);
+    deleteUser(username: string){
+        return this.userModel.findOneAndDelete({username});
     }
 }

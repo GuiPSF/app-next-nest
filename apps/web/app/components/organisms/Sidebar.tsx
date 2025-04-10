@@ -1,4 +1,7 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import Button from "../atoms/Button";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Side = styled.aside`
   width: 220px;
@@ -8,12 +11,18 @@ const Side = styled.aside`
 `;
 
 export default function Sidebar() {
+  const router = useRouter();
+  function logout() {
+    localStorage.removeItem("token");
+    router.push("/login");
+  }
   return (
     <Side>
-      <ul>
-        <li>🏠 Dashboard</li>
-        <li>👤 Profile</li>
-        <li>⚙️ Settings</li>
+      <ul style={{display: "flex", flexDirection: "column" ,gap: 10}}>
+        <li><Link href="/users">Users List</Link></li>
+        <li>
+          <Button onClick={logout}>LogOut</Button>
+        </li>
       </ul>
     </Side>
   );

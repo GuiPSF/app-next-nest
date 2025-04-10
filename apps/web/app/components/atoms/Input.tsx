@@ -24,6 +24,7 @@ interface InputProps {
   name: string;
   type?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string;
 }
 
 const Input: React.FC<InputProps> = ({
