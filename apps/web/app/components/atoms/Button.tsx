@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const SButton = styled.button`
   padding: 0.75rem 1rem;
-  background-color: #4f46e5; /* Indigo */
+  background-color: #4f46e5;
   color: white;
   border: none;
   border-radius: 8px;
@@ -15,10 +15,15 @@ const SButton = styled.button`
   }
 `;
 
-const Button = () => {
+interface ButtonProps {
+  type?: string;
+  children: React.ReactNode;
+}
+
+const Button: React.FC<ButtonProps> = ({ type = "", children }) => {
   return (
     <>
-      <SButton />
+      <SButton type="submit"> {children} </SButton>
     </>
   );
 };

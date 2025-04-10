@@ -4,10 +4,11 @@ import React from 'react'
 const SForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  //align-items: center;
+  gap: 0.5rem;
   width: 100%;
   max-width: 400px;
-  margin: 3rem auto;
+  margin: 15% auto;
   padding: 2rem;
   border: 1px solid #e5e7eb;
   border-radius: 12px;

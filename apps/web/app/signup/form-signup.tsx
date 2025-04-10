@@ -3,6 +3,7 @@ import Form from "../components/molecules/Form"
 import Input from "../components/atoms/Input";
 import Button from "../components/atoms/Button";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function FormSignup() {
   const [formData, setFormData] = useState({
@@ -32,11 +33,18 @@ export default function FormSignup() {
   return (
     <Form onSubmit={handleSubmit}>
       <h1 style={{ textAlign: 'center', marginBottom: '1rem', color: 'black'}}>Welcome!</h1>
+      <p style={{margin: 0}}>Username</p>
       <Input placeholder="Username" name="username" onChange={handleChange} />
+      <p style={{margin: 0}}>Email</p>
       <Input placeholder="Email" name="email" onChange={handleChange} />
+      <p style={{margin: 0}}>Password</p>
       <Input placeholder="Password" name="password" type="password" onChange={handleChange} />
+      <p style={{margin: 0}}>Role</p>
       <Input placeholder="User Role" name="role" onChange={handleChange} />
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
+      <div style={{ alignSelf: "center" }}>
+        <p>Already have an account? <Link href="/login">Login</Link></p>
+      </div>
     </Form>
   );
 }
