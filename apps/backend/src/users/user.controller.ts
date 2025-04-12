@@ -26,7 +26,7 @@ export class UserController {
 
     @Put(':username')
     @UsePipes(new ValidationPipe)
-    async updateUser(@Param('id') username: string, @Body() updateUserDto: UpdateUserDto){
+    async updateUser(@Param('username') username: string, @Body() updateUserDto: UpdateUserDto){
         return await this.userService.updateUser(username, updateUserDto);
     }
 

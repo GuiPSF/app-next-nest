@@ -94,9 +94,14 @@ const DropdownItem = styled.li`
 `;
 
 const UsersBoard: React.FC<UsersBoardProps> = ({ users }) => {
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editData, setEditData] = useState({ username: "", email: "", role: "" });
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editData, setEditData] = useState({
+    username: "",
+    email: "",
+    role: "",
+  });
+  const [role, setRole] = useState<User | null>(null)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const toggleDropdown = (username: string) => {
@@ -105,19 +110,23 @@ const UsersBoard: React.FC<UsersBoardProps> = ({ users }) => {
 
   const handleSave = async () => {
     const token = localStorage.getItem("token");
-    const res = await fetch(`http://localhost:3333/users/${selectedUser?.username}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(editData),
-    });
+    const res = await fetch(
+      `http://localhost:3333/users/${selectedUser?.username}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(editData),
+      }
+    );
 
     if (res.ok) {
       alert("User updated!");
+      console.log(...editData.role)
       setIsModalOpen(false);
-      window.location.reload(); // or update state
+      window.location.reload();
     } else {
       const error = await res.text();
       alert(`Error: ${error}`);
@@ -125,6 +134,11 @@ const UsersBoard: React.FC<UsersBoardProps> = ({ users }) => {
   };
 
   const handleEditClick = (user: User) => {
+    if(localStorage.getItem("role") === "user"){
+      alert('Você não tem permissões para realizar isto!')
+      window.location.reload();
+      return null
+    }
     setSelectedUser(user);
     setEditData({
       username: user.username,
@@ -139,31 +153,36 @@ const UsersBoard: React.FC<UsersBoardProps> = ({ users }) => {
   };
 
   const handleDelete = async (user: User) => {
-    const confirmed = window.confirm(`Are you sure you want to delete ${user.username}?`);
+    if(localStorage.getItem("role") === "user"){
+      alert('Você não tem permissões para realizar isto!')
+      window.location.reload();
+      return null
+    }
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${user.username}?`
+    );
     if (!confirmed) return;
-  
+
     try {
-      const token = localStorage.getItem("token"); // or use cookies if you switched
+      const token = localStorage.getItem("token");
       const res = await fetch(`http://localhost:3333/users/${user.username}`, {
         method: "DELETE",
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
-  
+
       if (!res.ok) {
         const error = await res.text();
         console.error("Failed to delete:", error);
         alert("Failed to delete user.");
         return;
       }
-  
+
       alert("User deleted successfully!");
-  
-      //reload page
+
       window.location.reload();
-  
     } catch (err) {
       console.error("Error deleting user:", err);
       alert("Something went wrong.");
@@ -201,12 +220,30 @@ const UsersBoard: React.FC<UsersBoardProps> = ({ users }) => {
           </UserItem>
         ))}
       </ul>
-      <Button onClick={()=> redirect("/profile")}>Back</Button>
+      <Button onClick={() => redirect("/profile")}>Back</Button>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <h3>Edit User</h3>
-        <Input placeholder="username" name="username" value={editData.username} onChange={handleEditChange} />
-        <Input placeholder="email" name="email" value={editData.email} onChange={handleEditChange} />
-        <Input placeholder="role" name="role" value={editData.role} onChange={handleEditChange} />
+        <p style={{ margin: 0 }}>Username</p>
+        <Input
+          placeholder="username"
+          name="username"
+          value={editData.username}
+          onChange={handleEditChange}
+        />
+        <p style={{ margin: 0 }}>Email</p>
+        <Input
+          placeholder="email"
+          name="email"
+          value={editData.email}
+          onChange={handleEditChange}
+        />
+        <p style={{ margin: 0 }}>Role</p>
+        <Input
+          placeholder="role"
+          name="role"
+          value={editData.role}
+          onChange={handleEditChange}
+        />
         <Button onClick={handleSave}>Save</Button>
       </Modal>
     </SUsersBoard>

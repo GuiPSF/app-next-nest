@@ -4,6 +4,7 @@ import Input from "../components/atoms/Input";
 import Button from "../components/atoms/Button";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function FormSignup() {
   const [error, setError] = useState("");
@@ -13,6 +14,7 @@ export default function FormSignup() {
     password: "",
     role: "",
   });
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,6 +38,10 @@ export default function FormSignup() {
         throw new Error(errorData.message || "Something went wrong");
       }
       const data = await res.json();
+      console.log(data)
+      if(data.email){
+        router.push("/login");
+      }
       return data;
     } catch (err: any) {
       setError(err.message);

@@ -23,7 +23,8 @@ export class UserService {
     }
 
     updateUser(username: string, updateUserDto: UpdateUserDto){
-        return this.userModel.findByIdAndUpdate(username, updateUserDto, {new: true})
+        //return this.userModel.findByIdAndUpdate(username, updateUserDto, {new: true})
+        return this.userModel.findOneAndUpdate( {username: { $eq: username}}, updateUserDto, {new: true})
     }
 
     deleteUser(username: string){

@@ -6,13 +6,30 @@ import Input from "../components/atoms/Input";
 import Link from "next/link";
 import Button from "../components/atoms/Button";
 import { useRouter } from "next/navigation";
+import { User } from "@repo/types";
+import { getUser } from "../../server/users";
+
+
+async function getUsers(){
+  const users: User[] = await getUser()
+  return users
+}
 
 export default function FormLogin() {
+  const [userRole, setUserRole] = useState("")
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+  getUsers().then((user) => {
+    for(let i = 0; i < user.length; i++){
+      if(formData.username === user[i]?.username){
+        setUserRole(user[i]?.role || "")
+      }
+    }
+    
+  })
   const router = useRouter();
 
   useEffect(() => {
@@ -21,6 +38,10 @@ export default function FormLogin() {
       router.push("/profile");
     }
   }, []);
+
+  const setRole = () => {
+
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -46,6 +67,8 @@ export default function FormLogin() {
       const data = await res.json();
       if (data.accessToken) {
         localStorage.setItem("token", data.accessToken);
+        localStorage.setItem("username", formData.username);
+        localStorage.setItem("role", userRole)
         router.push("/profile");
       } else {
         alert("Login Failed");
@@ -53,7 +76,6 @@ export default function FormLogin() {
     } catch (err: any) {
       setError("Wrong Credentials");
     }
-    //return data;
   };
 
   return (

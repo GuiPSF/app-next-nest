@@ -1,4 +1,3 @@
-// components/atoms/Modal.tsx
 import styled from "styled-components";
 
 const Overlay = styled.div`

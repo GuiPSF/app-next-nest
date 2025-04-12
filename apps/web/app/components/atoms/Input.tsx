@@ -10,7 +10,6 @@ const SInput = styled.input`
   transition: border-color 0.2s;
   transition: background-color 0.2s;
 
-
   &:hover {
     background-color:rgb(185, 185, 185);
 
