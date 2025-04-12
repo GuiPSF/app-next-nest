@@ -39,10 +39,6 @@ export default function FormLogin() {
     }
   }, []);
 
-  const setRole = () => {
-
-  }
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

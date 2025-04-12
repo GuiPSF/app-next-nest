@@ -20,7 +20,8 @@ export default function Sidebar() {
   return (
     <Side>
       <ul style={{display: "flex", flexDirection: "column" ,gap: 10}}>
-        <li><Link href="/users">Users List</Link></li>
+        
+        <li><Button><Link  style={{textDecoration: "none", color: "white"}} href="/users">👥 All Users</Link></Button></li>
         <li>
           <Button onClick={logout}>LogOut</Button>
         </li>

@@ -134,12 +134,12 @@ const UsersBoard: React.FC<UsersBoardProps> = ({ users }) => {
   };
 
   const handleEditClick = (user: User) => {
-    if(localStorage.getItem("role") === "user"){
-      alert('Você não tem permissões para realizar isto!')
+    setSelectedUser(user);
+    if(localStorage.getItem("role") === "user" && localStorage.getItem("username") != user.username){
+      alert('Only admins can edit other users!')
       window.location.reload();
       return null
     }
-    setSelectedUser(user);
     setEditData({
       username: user.username,
       email: user.email,
